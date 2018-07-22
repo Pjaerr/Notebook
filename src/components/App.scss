@@ -1,7 +1,11 @@
 
-$backgroundColour: red;
+$backgroundColour: #f5f5f5;
 
 .app
 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     background: $backgroundColour;
 }
