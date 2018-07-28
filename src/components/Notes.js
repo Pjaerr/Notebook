@@ -10,7 +10,7 @@ class Notes extends React.Component
     state =
         {
             //Notes[] is just an array of strings.
-            notes: [{ text: "Hello World!", key: "Hel" + Date.now() }, { text: "Hi Planet!", key: "Hi" + Date.now() }],
+            notes: this.props.externallyLoadedNotes,
             isCreatingNote: false
         };
 
@@ -32,6 +32,8 @@ class Notes extends React.Component
     {
         const { notes } = this.state;
 
+        this.props.pushNotes(notes);
+
         if (notes.length > 0)
         {
             return notes.map(note => <Note deleteNote={this.deleteNote} id={note.key} key={note.key} text={note.text} />);
@@ -40,6 +42,8 @@ class Notes extends React.Component
         {
             return <p>Nothing to see here <span role="img" aria-label="Cool Sunglasses Emoji"> 😎 </span></p>
         }
+
+
     }
 
     deleteNote = (id) => 
