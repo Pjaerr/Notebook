@@ -6,25 +6,33 @@ class CreateNote extends React.Component
 {
     state =
         {
-            value: ""
+            note: { text: "", key: "" },
         };
 
     handleChange = (event) =>
     {
-        this.setState({ value: event.target.value });
+        let text = event.target.value;
+
+        let rand = Math.random() * text.length
+
+        let substringLength = rand <= 10 ? rand : 5;
+
+        let key = text.substr(0, substringLength) + Date.now();
+
+        this.setState({ note: { text, key } });
     }
 
     createNote = (actionCancelled) =>
     {
         if (actionCancelled)
         {
-            this.props.addNote("");
+            this.props.addNote({ text: "", key: "" });
         }
         else
         {
-            this.props.addNote(this.state.value);
+            this.props.addNote(this.state.note);
 
-            this.setState({ value: "" });
+            this.setState({ note: { text: "", key: "" } });
         }
 
     }

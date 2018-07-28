@@ -14,12 +14,12 @@ class Notes extends React.Component
             isCreatingNote: false
         };
 
-    addNote = (text) =>
+    addNote = (note) =>
     {
-        if (text !== "")
+        if (note.text !== "")
         {
             let { notes } = this.state;
-            notes.push(text);
+            notes.push(note);
             this.setState({ notes, isCreatingNote: false });
         }
         else
@@ -34,12 +34,28 @@ class Notes extends React.Component
 
         if (notes.length > 0)
         {
-            return notes.map(note => <Note key={note.key} text={note.text} />);
+            return notes.map(note => <Note deleteNote={this.deleteNote} id={note.key} key={note.key} text={note.text} />);
         }
         else
         {
             return <p>Nothing to see here <span role="img" aria-label="Cool Sunglasses Emoji"> 😎 </span></p>
         }
+    }
+
+    deleteNote = (id) => 
+    {
+        let { notes } = this.state;
+
+        for (let i = notes.length - 1; i >= 0; i--)
+        {
+            if (notes[i].key === id)
+            {
+                notes.splice(i, 1);
+                i = 0;
+            }
+        }
+
+        this.setState({ notes });
     }
 
     render()
