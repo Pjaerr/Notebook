@@ -10,6 +10,9 @@ const CreateNote = (props) =>
             <div className={styles.createNote}>
                 <textarea rows="4" cols="50">
                 </textarea>
+                <button onClick={() => { props.addNote("Sample text") }}>
+                    Create
+                </button>
             </div>
         );
     }
