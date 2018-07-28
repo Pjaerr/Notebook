@@ -8,7 +8,9 @@ class Notes extends React.Component
 {
     state =
         {
-            notes: [] //Should just be text and then rendered as a jsx component
+            //Notes[] is just an array of strings.
+            notes: [],
+            isCreatingNote: false
         };
 
     renderNotes = () =>
@@ -17,7 +19,6 @@ class Notes extends React.Component
 
         if (notes.length > 0)
         {
-
             return notes.map(text => <Note text={text} />);
         }
         else
@@ -29,9 +30,18 @@ class Notes extends React.Component
     render()
     {
         return (
-            <div className={styles.notes}>
+            <section className={styles.notes}>
+                <header>
+                    <h3>Notes</h3>
+                </header>
                 {this.renderNotes()}
-            </div>
+
+
+
+                <button onClick={() => { this.setState({ isCreatingNote: true }) }}>
+                    Create Note +
+                </button>
+            </section>
         );
     }
 }
