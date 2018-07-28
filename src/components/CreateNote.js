@@ -2,23 +2,43 @@ import React from 'react';
 
 import styles from './CreateNote.scss';
 
-const CreateNote = (props) =>
+class CreateNote extends React.Component
 {
-    if (props.isVisible)
+    state =
+        {
+            value: ""
+        };
+
+    handleChange = (event) =>
     {
-        return (
-            <div className={styles.createNote}>
-                <textarea rows="4" cols="50">
-                </textarea>
-                <button onClick={() => { props.addNote("Sample text") }}>
-                    Create
-                </button>
-            </div>
-        );
+        this.setState({ value: event.target.value });
     }
-    else
+
+    createNote = () =>
     {
-        return null;
+        this.props.addNote(this.state.value);
+
+        this.setState({ value: "" });
+    }
+
+    render()
+    {
+        if (this.props.isVisible)
+        {
+            return (
+                <div className={styles.createNote}>
+                    <textarea rows="4" cols="50" value={this.state.value} onChange={this.handleChange}>
+                    </textarea>
+                    <button onClick={this.createNote}>
+                        Create
+                    </button>
+                </div>
+            );
+        }
+        else
+        {
+            return null;
+        }
     }
 }
 
