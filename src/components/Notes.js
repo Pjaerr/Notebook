@@ -10,15 +10,22 @@ class Notes extends React.Component
     state =
         {
             //Notes[] is just an array of strings.
-            notes: [],
+            notes: [{ text: "Hello World!", key: "Hel" + Date.now() }, { text: "Hi Planet!", key: "Hi" + Date.now() }],
             isCreatingNote: false
         };
 
     addNote = (text) =>
     {
-        let { notes } = this.state;
-        notes.push(text);
-        this.setState({ notes, isCreatingNote: false });
+        if (text !== "")
+        {
+            let { notes } = this.state;
+            notes.push(text);
+            this.setState({ notes, isCreatingNote: false });
+        }
+        else
+        {
+            this.setState({ isCreatingNote: false });
+        }
     }
 
     renderNotes = () =>
@@ -27,11 +34,11 @@ class Notes extends React.Component
 
         if (notes.length > 0)
         {
-            return notes.map(text => <Note text={text} />);
+            return notes.map(note => <Note key={note.key} text={note.text} />);
         }
         else
         {
-            return <p>Nothing to see here 😎</p>
+            return <p>Nothing to see here <span role="img" aria-label="Cool Sunglasses Emoji"> 😎 </span></p>
         }
     }
 
@@ -46,8 +53,8 @@ class Notes extends React.Component
 
                 <CreateNote addNote={this.addNote} isVisible={this.state.isCreatingNote} />
 
-                <button onClick={() => { this.setState({ isCreatingNote: true }) }}>
-                    Create Note +
+                <button className={styles.createNoteButton} onClick={() => { this.setState({ isCreatingNote: true }) }}>
+                    <span>+</span> <span>Create Note</span>
                 </button>
             </section>
         );

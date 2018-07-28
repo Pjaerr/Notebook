@@ -1,7 +1,23 @@
 
-$backgroundColour: red;
+$backgroundColour: #FFFFFF;
 
 .app
 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
     background: $backgroundColour;
+
+    border: 1px solid black;
+}
+
+@media (min-width: 900px)
+{
+    .app
+    {
+        max-width: 80%;
+    }
 }

@@ -14,11 +14,19 @@ class CreateNote extends React.Component
         this.setState({ value: event.target.value });
     }
 
-    createNote = () =>
+    createNote = (actionCancelled) =>
     {
-        this.props.addNote(this.state.value);
+        if (actionCancelled)
+        {
+            this.props.addNote("");
+        }
+        else
+        {
+            this.props.addNote(this.state.value);
 
-        this.setState({ value: "" });
+            this.setState({ value: "" });
+        }
+
     }
 
     render()
@@ -27,11 +35,16 @@ class CreateNote extends React.Component
         {
             return (
                 <div className={styles.createNote}>
-                    <textarea rows="4" cols="50" value={this.state.value} onChange={this.handleChange}>
+                    <textarea className={styles.textArea} value={this.state.value} onChange={this.handleChange}>
                     </textarea>
-                    <button onClick={this.createNote}>
-                        Create
-                    </button>
+                    <div className={styles.buttons}>
+                        <button onClick={() => { this.createNote(true) }}>
+                            <img src={require('../resources/close-circle.svg')} alt="cancel note creation" />
+                        </button>
+                        <button onClick={() => { this.createNote(false) }}>
+                            <img src={require('../resources/plus-circle.svg')} alt="create note" />
+                        </button>
+                    </div>
                 </div>
             );
         }
