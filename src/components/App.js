@@ -4,12 +4,58 @@ import styles from './App.scss';
 
 import Notes from './Notes';
 
+import firebase from "firebase";
+
+// Required for side-effects
+import "firebase/firestore";
+
 class App extends React.Component 
 {
-
   constructor(props)
   {
     super(props);
+
+
+
+    firebase.initializeApp({
+      apiKey: "API-KEY",
+      authDomain: "AUTHDOMAIN",
+      projectId: "PROJECTID"
+    });
+
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+
+    db.collection("users").add({
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+    })
+      .then(function (docRef)
+      {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function (error)
+      {
+        console.error("Error adding document: ", error);
+      });
+
+    db.collection("users").add({
+      first: "Alan",
+      middle: "Mathison",
+      last: "Turing",
+      born: 1912
+    })
+      .then(function (docRef)
+      {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function (error)
+      {
+        console.error("Error adding document: ", error);
+      });
+
 
     this.notes = [];
 
