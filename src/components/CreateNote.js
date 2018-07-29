@@ -9,6 +9,8 @@ class CreateNote extends React.Component
             note: { text: "", key: "" },
         };
 
+    textArea = React.createRef();
+
     handleChange = (event) =>
     {
         let text = event.target.value;
@@ -34,7 +36,14 @@ class CreateNote extends React.Component
 
             this.setState({ note: { text: "", key: "" } });
         }
+    }
 
+    componentDidUpdate()
+    {
+        if (this.textArea.current !== null)
+        {
+            this.textArea.current.focus();
+        }
     }
 
     render()
@@ -43,7 +52,7 @@ class CreateNote extends React.Component
         {
             return (
                 <div className={styles.createNote}>
-                    <textarea className={styles.textArea} value={this.state.value} onChange={this.handleChange}>
+                    <textarea className={styles.textArea} ref={this.textArea} value={this.state.value} onChange={this.handleChange}>
                     </textarea>
                     <div className={styles.buttons}>
                         <button onClick={() => { this.createNote(true) }}>
